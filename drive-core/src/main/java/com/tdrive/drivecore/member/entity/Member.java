@@ -1,4 +1,4 @@
-package com.tdrive.drivecore.Member.entity;
+package com.tdrive.drivecore.member.entity;
 
 import lombok.Getter;
 import lombok.Setter;
