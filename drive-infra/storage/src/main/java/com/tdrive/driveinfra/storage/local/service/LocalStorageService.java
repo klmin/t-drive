@@ -1,6 +1,6 @@
 package com.tdrive.driveinfra.storage.local.service;
 
-import com.tdrive.drivecore.storage.service.StorageService;
+import com.tdrive.drivedomain.storage.service.StorageService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +10,6 @@ public class LocalStorageService implements StorageService {
 
     @Override
     public void get() {
-        System.out.println("LocalStorageService.get");
+        System.out.println("call LocalStorageService get");
     }
 }

@@ -2,8 +2,6 @@ tasks.named("bootJar").configure { enabled = true } // ✅ bootJar 비활성화 
 tasks.named("jar").configure { enabled = false}
 
 dependencies {
-    implementation(project(":drive-core"))
-    implementation(project(":drive-infra:storage"))
-    implementation(project(":drive-infra:persistence"))
+    implementation(project(":drive-application"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
 }

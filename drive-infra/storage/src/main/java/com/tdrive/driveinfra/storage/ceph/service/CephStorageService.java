@@ -1,6 +1,6 @@
 package com.tdrive.driveinfra.storage.ceph.service;
 
-import com.tdrive.drivecore.storage.service.StorageService;
+import com.tdrive.drivedomain.storage.service.StorageService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +10,6 @@ public class CephStorageService implements StorageService {
 
     @Override
     public void get() {
-        System.out.println("Ceph Storage Service");
+        System.out.println("call CephStorageService get");
     }
 }
