@@ -1,17 +1,21 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.4.2" apply false
-    id("io.spring.dependency-management") version "1.1.7" apply false
+    id("org.springframework.boot") apply false
+    id("io.spring.dependency-management") apply false
 }
 
 tasks.withType<Jar> {
     enabled = false
 }
 
+val projectGroup: String by project
+val applicationVersion: String by project
+val javaVersion = project.findProperty("javaVersion").toString().toInt()
+
 allprojects {
 
-    group = "com.tdrive"
-    version = "0.0.1"
+    group = projectGroup
+    version = applicationVersion
 
     repositories {
         mavenCentral()
@@ -35,7 +39,7 @@ subprojects{
 
     java {
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21)
+            languageVersion.set(JavaLanguageVersion.of(javaVersion))
         }
     }
 

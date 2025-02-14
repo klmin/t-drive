@@ -1,4 +1,4 @@
-package com.tdrive.driveapi;
+package com.tdrive.bootstrap;
 
 
 import com.tdrive.driveapplication.file.usecase.FileUploadUseCase;
