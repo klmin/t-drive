@@ -1,6 +1,7 @@
 package com.tdrive.driveapi;
 
 
+import com.tdrive.driveapplication.file.usecase.FileUploadUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,12 +13,11 @@ import org.springframework.stereotype.Component;
 public class BeanChecker implements ApplicationRunner {
 
     private final ApplicationContext context;
-//    private final StorageService storageService;
+    private final FileUploadUseCase fileUploadUseCase;
 
     @Override
     public void run(ApplicationArguments args) {
-//        System.out.println("storageService name : "+storageService.getClass().getName());
-//        storageService.get();
+        fileUploadUseCase.upload();
 //        System.out.println("========== 등록된 StorageService 빈 ==========");
 //        String[] storageBeans = context.getBeanNamesForType(StorageService.class);
 //        for (String bean : storageBeans) {

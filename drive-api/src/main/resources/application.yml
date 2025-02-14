@@ -1,2 +1,6 @@
-storage:
-  type: ceph
+spring :
+  profiles :
+    active : local
+  config:
+    import:
+      - "optional:classpath:application-storage-${spring.profiles.active}.yml"

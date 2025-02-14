@@ -3,5 +3,7 @@ tasks.named("jar").configure { enabled = false}
 
 dependencies {
     implementation(project(":drive-application"))
+    implementation(project(":drive-infra:storage"))
+    implementation(project(":drive-infra:persistence"))
     implementation("org.springframework.boot:spring-boot-starter-validation")
 }
