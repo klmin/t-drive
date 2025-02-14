@@ -1,11 +1,9 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
 plugins {
     java
     id("org.springframework.boot") apply false
     id("io.spring.dependency-management") apply false
-}
-
-tasks.withType<Jar> {
-    enabled = false
 }
 
 val projectGroup: String by project
@@ -20,6 +18,16 @@ allprojects {
     repositories {
         mavenCentral()
     }
+
+    tasks{
+        withType<BootJar>{
+            enabled = false
+        }
+        withType<Jar>{
+            enabled = false
+        }
+    }
+
 }
 
 subprojects{

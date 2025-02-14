@@ -1,15 +1,14 @@
-
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 tasks{
-	bootJar{
+	named<BootJar>("bootJar"){
 		archiveBaseName.set("t-drive")
 		enabled = true
 	}
-	jar{
+	named<Jar>("jar") {
 		enabled = false
 	}
 }
-
 
 dependencies {
 	implementation(project(":drive-api"))
