@@ -27,10 +27,12 @@ public class BeanChecker implements ApplicationRunner {
 
         try(Connection connection = dataSource.getConnection()){
             DatabaseMetaData metaData = connection.getMetaData();
+            System.out.println("metaData.getConnection().getSchema() : " + metaData.getConnection().getSchema());
             System.out.println("metaData.getURL() : " + metaData.getURL());
             System.out.println("metaData.getDatabaseProductName() : " + metaData.getDatabaseProductName());
             System.out.println("metaData.getDatabaseProductVersion() : " + metaData.getDatabaseProductVersion());
             System.out.println("metaData.getDriverName() : " + metaData.getDriverName());
+            System.out.println("metaData.getUserName() : " + metaData.getUserName());
         }catch(SQLException e){
             System.err.println("❌ Failed to get DataSource info: " + e.getMessage());
         }
