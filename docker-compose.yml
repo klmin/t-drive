@@ -1,0 +1,50 @@
+services:
+  mysql:
+    extends:
+      file: drive-infra/persistence/docker-compose.yml
+      service: mysql
+  redis:
+    extends:
+      file: drive-infra/persistence/docker-compose.yml
+      service: redis
+
+#  ceph-mon:
+#    image: ceph/daemon:latest-luminous
+#    container_name: ceph-mon
+#    network_mode: host
+#    privileged: true
+#    environment:
+#      - MON_IP=127.0.0.1
+#      - CEPH_PUBLIC_NETWORK=127.0.0.1/24
+#    volumes:
+#      - /etc/ceph:/etc/ceph
+#      - /var/lib/ceph:/var/lib/ceph
+#    restart: always
+#
+#  ceph-osd:
+#    image: ceph/daemon:latest-luminous
+#    container_name: ceph-osd
+#    network_mode: host
+#    privileged: true
+#    environment:
+#      - OSD_DEVICE=/dev/sdb  # 로컬 테스트에서는 실제 디스크 없이 가능
+#      - CEPH_PUBLIC_NETWORK=127.0.0.1/24
+#    volumes:
+#      - /etc/ceph:/etc/ceph
+#      - /var/lib/ceph:/var/lib/ceph
+#      - /dev:/dev
+#    restart: always
+#
+#  ceph-rgw:
+#    image: ceph/daemon:latest-luminous
+#    container_name: ceph-rgw
+#    network_mode: host
+#    privileged: true
+#    environment:
+#      - CEPH_PUBLIC_NETWORK=127.0.0.1/24
+#    volumes:
+#      - /etc/ceph:/etc/ceph
+#      - /var/lib/ceph:/var/lib/ceph
+#    restart: always
+
+

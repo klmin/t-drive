@@ -16,4 +16,5 @@ dependencies {
 	implementation(project(":drive-domain"))
 	implementation(project(":drive-infra:storage"))
 	implementation(project(":drive-infra:persistence"))
+	implementation("org.springframework.boot:spring-boot-docker-compose")
 }

@@ -3,4 +3,8 @@ spring :
     active : local
   config:
     import:
+      - "optional:file:.env[.properties]"
       - "optional:classpath:application-storage-${spring.profiles.active}.yml"
+      - "optional:classpath:application-persistence-${spring.profiles.active}.yml"
+
+
