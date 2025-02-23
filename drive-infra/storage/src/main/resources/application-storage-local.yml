@@ -1,2 +1,7 @@
 storage:
-  type: local
+  type: ceph
+  ceph:
+    rgw:
+      end-point: http://192.168.10.102
+      access-key: TR0JLCLPLQEX2LBJYMT5
+      secret-key: ZQltNNTamP82eNDgS19ANPsvUGz4UY5DVYBhlJ8V

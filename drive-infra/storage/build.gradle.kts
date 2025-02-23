@@ -11,4 +11,5 @@ tasks{
 
 dependencies {
     implementation(project(":drive-domain"))
+    implementation("software.amazon.awssdk:s3:2.30.25")
 }
