@@ -3,17 +3,20 @@ package com.tdrive.driveinfra.storage.ceph.service;
 import com.tdrive.drivedomain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
-import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import software.amazon.awssdk.services.s3.model.S3Object;
+import software.amazon.awssdk.services.s3.model.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 @ConditionalOnProperty(name = "storage.type", havingValue = "ceph", matchIfMissing = true)
 @Service
@@ -91,7 +94,7 @@ public class CephStorageService implements StorageService {
     }
 
     @Override
-    public void download(String bucketName, String key) {
+    public void download(String bucketName, String key)  {
 //        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
 //                .bucket(bucketName)
 //                .key(key)
@@ -108,12 +111,48 @@ public class CephStorageService implements StorageService {
 //            throw new RuntimeException("Error downloading file from Ceph", e);
 //        }
 
-        s3Client.getObject(
-                req -> {
-                    req.bucket(bucketName).key(key);
-                },
-                Paths.get("C:/ceph/hello.txt")
-        );
+        GetObjectRequest request = GetObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+
+        //ResponseInputStream<GetObjectResponse> response = s3Client.getObject(request);
+
+        try {
+            Files.copy(
+                    s3Client.getObject(request),
+                    Paths.get("C:/ceph/hello.txt"),
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            s3Client.getObject(request).transferTo(outputStream);
+            System.out.println("ByteArrayResource : "+new ByteArrayResource(outputStream.toByteArray()));
+        } catch (IOException e) {
+            throw new RuntimeException("Error downloading file from Ceph", e);
+        }
+
+
+        HeadObjectRequest headObjectRequest = HeadObjectRequest.builder()
+                .bucket(bucketName)
+                .key(key)
+                .build();
+
+        HeadObjectResponse headObjectResponse = s3Client.headObject(headObjectRequest);
+
+        System.out.println("File Size: " + headObjectResponse.contentLength());
+        System.out.println("Content Type: " + headObjectResponse.contentType());
+        System.out.println("Last Modified: " + headObjectResponse.lastModified());
+
+//         s3Client.getObject(
+//                req -> {
+//                    req.bucket(bucketName).key(key);
+//                },
+//                Paths.get("C:/ceph/hello.txt")
+//        );
     }
 
     @Override
