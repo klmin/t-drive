@@ -4,7 +4,16 @@ import com.tdrive.drivedomain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.ListObjectsResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.S3Object;
+
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.file.Paths;
 
 @ConditionalOnProperty(name = "storage.type", havingValue = "ceph", matchIfMissing = true)
 @Service
@@ -14,27 +23,128 @@ public class CephStorageService implements StorageService {
     private final S3Client s3Client;
 
     @Override
-    public void get() {
+    public void upload(InputStream inputStream, long contentLength, String bucketName) {
 
-        System.out.println("call CephStorageService get");
-        s3Client.serviceClientConfiguration().endpointOverride().ifPresent(uri -> {
-            System.out.println("S3Client Endpoint - Full URI: " + uri.toString());
-            System.out.println("Scheme (Protocol): " + uri.getScheme()); // 예: "http"
-            System.out.println("Host: " + uri.getHost()); // 예: "192.168.10.102"
-            System.out.println("Port: " + uri.getPort()); // 예: 80 (기본값) 또는 지정된 포트
-            System.out.println("Path: " + uri.getPath()); // 예: "" (기본적으로 비어 있음)
-            System.out.println("Query: " + uri.getQuery()); // 쿼리 파라미터, 없으면 null
-            System.out.println("Fragment: " + uri.getFragment()); // 프래그먼트, 없으면 null
-            System.out.println("User Info: " + uri.getUserInfo()); // 사용자 정보, 없으면 null
-            System.out.println("Authority: " + uri.getAuthority()); // 예: "192.168.10.102:80"
-            System.out.println("Raw Path: " + uri.getRawPath()); // 인코딩되지 않은 경로
-            System.out.println("Raw Query: " + uri.getRawQuery()); // 인코딩되지 않은 쿼리
-            System.out.println("Raw Fragment: " + uri.getRawFragment()); // 인코딩되지 않은 프래그먼트
+        s3Client.createBucket(req -> {
+            System.out.println("create");
+            req.bucket(bucketName);
         });
 
-        // 다른 S3Client 설정도 출력
-        System.out.println("S3Client Region: " + s3Client.serviceClientConfiguration().region());
-        System.out.println("S3Client Credentials Provider: " + s3Client.serviceClientConfiguration().credentialsProvider()
-                .getClass().getName() + " - " + s3Client.serviceClientConfiguration().credentialsProvider());
+
+        ByteBuffer input = ByteBuffer.wrap("Hello World!".getBytes());
+        s3Client.putObject(
+                req -> {
+                    req.bucket(bucketName).key("hello.txt");
+                },
+                RequestBody.fromByteBuffer(input)
+        );
+
+        s3Client.putObject(
+                req -> {
+                    req.bucket(bucketName).key("aa/aa/hello.txt");
+                },
+                RequestBody.fromByteBuffer(input)
+        );
+
+        ListObjectsResponse loResponse = s3Client.listObjects(req -> {
+            req.bucket(bucketName);
+        });
+
+        for (S3Object object : loResponse.contents()) {
+            System.out.println(
+                    object.key() + "\t" +
+                            object.size() + "\t" +
+                            object.lastModified()
+            );
+        }
+
+        this.download("test", "hello.txt");
+        this.delete("test", "hello.txt");
+
+//        s3Client.createBucket(req -> {
+//            System.out.println("create");
+//            req.bucket(bucketName);
+//        });
+//
+//        ListObjectsResponse loResponse = s3Client.listObjects(req -> {
+//            req.bucket(bucketName);
+//        });
+//
+//        for (S3Object object : loResponse.contents()) {
+//            System.out.println(
+//                    object.key() + "\t" +
+//                            object.size() + "\t" +
+//                            object.lastModified()
+//            );
+//        }
+//
+//        String key = generateKey();
+//
+//        System.out.println("call CephStorageService upload");
+//        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+//                .bucket(bucketName)
+//                .key(key)
+//                .build();
+//        s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(inputStream, contentLength));
+//
+//        System.out.println("File uploaded to Ceph: " + key);
     }
+
+    @Override
+    public void download(String bucketName, String key) {
+//        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+//                .bucket(bucketName)
+//                .key(key)
+//                .build();
+//
+//        try {
+//            Files.copy(
+//                    s3Client.getObject(getObjectRequest),
+//                    Paths.get("C:\\ceph"),
+//                    StandardCopyOption.REPLACE_EXISTING
+//            );
+//            System.out.println("File downloaded from Ceph: " + key);
+//        } catch (Exception e) {
+//            throw new RuntimeException("Error downloading file from Ceph", e);
+//        }
+
+        s3Client.getObject(
+                req -> {
+                    req.bucket(bucketName).key(key);
+                },
+                Paths.get("C:/ceph/hello.txt")
+        );
+    }
+
+    @Override
+    public void delete(String bucketName, String key) {
+
+        s3Client.deleteObject(req -> {
+            req.bucket(bucketName).key(key);
+        });
+
+//        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+//                .bucket(bucketName)
+//                .key(key)
+//                .build();
+//
+//        s3Client.deleteObject(deleteObjectRequest);
+//        System.out.println("File deleted from Ceph: " + key);
+    }
+
+    public String generateKey(){
+        return "";
+    }
+
+    public void createBucketIfNotExists(String bucketName) {
+        try {
+            s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
+        } catch (S3Exception e) {
+            if (e.statusCode() != 409) { // 409 Conflict → 이미 존재
+                throw e;
+            }
+        }
+    }
+
+
 }
