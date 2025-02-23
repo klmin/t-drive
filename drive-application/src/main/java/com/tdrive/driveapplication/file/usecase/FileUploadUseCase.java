@@ -15,7 +15,7 @@ public class FileUploadUseCase {
     public String upload(){
         System.out.println("call FileUploadUseCase upload");
         fileService.upload();
-        storageService.get();
+        storageService.upload(null, 0,"test");
         return "";
     }
 }
