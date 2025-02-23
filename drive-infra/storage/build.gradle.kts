@@ -9,7 +9,9 @@ tasks{
     }
 }
 
+val awsSdkVersion: String by project
+
 dependencies {
     implementation(project(":drive-domain"))
-    implementation("software.amazon.awssdk:s3:2.30.25")
+    implementation("software.amazon.awssdk:s3:$awsSdkVersion")
 }
