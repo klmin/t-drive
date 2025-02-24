@@ -1,7 +1,8 @@
 package com.tdrive.bootstrap;
 
 
-import com.tdrive.driveapplication.file.usecase.FileUploadUseCase;
+
+import com.tdrive.application.file.usecase.FileUploadUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

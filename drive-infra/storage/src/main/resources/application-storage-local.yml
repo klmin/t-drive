@@ -2,6 +2,9 @@ storage:
   type: ceph
   ceph:
     rgw:
-      end-point: http://192.168.10.102
-      access-key: TR0JLCLPLQEX2LBJYMT5
-      secret-key: ZQltNNTamP82eNDgS19ANPsvUGz4UY5DVYBhlJ8V
+      #end-point: http://192.168.10.102
+#      access-key: TR0JLCLPLQEX2LBJYMT5
+#      secret-key: ZQltNNTamP82eNDgS19ANPsvUGz4UY5DVYBhlJ8V
+      end-point: http://172.23.1.51
+      access-key: 5C100C0GYUJJHXE2O252
+      secret-key: WVZHlsgNAljAJEAOoGiWGrwy5B4h7tYiXJfgeUju
