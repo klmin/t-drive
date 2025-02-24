@@ -25,7 +25,7 @@ public class FileUploadUseCase {
         // 4. ceph 결과에 따라 db 삭제?
 
         fileService.insert();
-        storageService.upload(null, 0, "test", "aa");
+        storageService.upload(null, 0, "test", "user/ee");
         return "";
     }
 }

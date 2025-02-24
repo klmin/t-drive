@@ -27,6 +27,7 @@ public class CephStorageService implements StorageService {
     @Override
     public void upload(InputStream inputStream, long contentLength, String bucketName, String key) {
 
+
         s3Client.createBucket(req -> req.bucket(bucketName));
 
 
@@ -40,7 +41,7 @@ public class CephStorageService implements StorageService {
 
         s3Client.putObject(
                 req -> {
-                    req.bucket(bucketName).key("aa/aa/"+key);
+                    req.bucket(bucketName).key("user/dd");
                 },
                 RequestBody.fromByteBuffer(input)
         );
@@ -55,8 +56,19 @@ public class CephStorageService implements StorageService {
             );
         }
 
+        ListObjectsV2Request listReq = ListObjectsV2Request.builder()
+                                                           .bucket(bucketName)
+                                                           .prefix( "user/")
+                                                           .build();
+
+        ListObjectsV2Response listRes = s3Client.listObjectsV2(listReq);
+
+        listRes.contents().forEach(r -> {
+            System.out.println("r.key() : "+r.key());
+        });
+
         this.download(bucketName, key);
-        this.delete(bucketName, key);
+       // this.delete(bucketName, key);
 //        this.delete("test", "aa/aa/hello.txt");
 
 //        s3Client.createBucket(req -> req.bucket(bucketName));
