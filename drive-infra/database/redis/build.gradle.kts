@@ -8,3 +8,7 @@ tasks{
         enabled = true
     }
 }
+
+dependencies {
+
+}
