@@ -5,7 +5,10 @@ include(
     "drive-api",
     "drive-domain",
     "drive-application",
-    "drive-infra:persistence",
+    "drive-infra:persistence:jpa",
+    "drive-infra:persistence:mybatis",
+    "drive-infra:database:mysql",
+    "drive-infra:database:redis",
     "drive-infra:storage"
 )
 

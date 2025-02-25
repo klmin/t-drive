@@ -1,0 +1,15 @@
+services:
+  mysql:
+    image: 'mysql:8.0'
+    environment:
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: Asia/Seoul
+    ports:
+      - '3309:3306'
+    volumes:
+      - "./mysql-docker/data:/var/lib/mysql"
+      - "./mysql-docker/sql:/docker-entrypoint-initdb.d"
+    restart: always

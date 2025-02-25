@@ -5,7 +5,8 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 drive-infra/persistence/mysql/data/
-redis/
+mysql-docker/
+redis-docker/
 
 ### STS ###
 .apt_generated

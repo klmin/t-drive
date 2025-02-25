@@ -26,6 +26,7 @@ public class FileUploadUseCase {
 
         fileService.insert();
         storageService.upload(null, 0, "test", "user/ee");
+
         return "";
     }
 }
