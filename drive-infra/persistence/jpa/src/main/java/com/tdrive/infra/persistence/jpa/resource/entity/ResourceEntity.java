@@ -13,7 +13,7 @@ public class ResourceEntity {
     private Long resourceSeq;
     private Integer userSeq;
     private ResourceType resourceType;
-    private Long parentResourceSeq;
+    private Long parentFolderSeq;
     private String resourceName;
     private Boolean isDelete;
     private LocalDateTime deleteDate;

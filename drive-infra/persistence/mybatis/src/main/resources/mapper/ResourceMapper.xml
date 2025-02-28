@@ -25,16 +25,16 @@
             #{parentFolderSeq},
             #{resourceType},
             #{resourceName},
-            #{path},
+            "path",
             #{ext},
             #{mimeType},
             #{sizeByte},
-            #{registerUserSeq}
+            1
         )
 
     </insert>
     
-    <insert id="insertTableNumber" useGeneratedKeys="true" keyProperty="resourceSeq">
+    <insert id="insertTableNumber" useGeneratedKeys="true" keyProperty="entity.resourceSeq">
 
         INSERT INTO TB_RESOURCE_${tableNumber}
         (
@@ -49,17 +49,17 @@
             REGISTER_USER_SEQ
         )
         VALUES
-            (
-                #{userSeq},
-                #{parentFolderSeq},
-                #{resourceType},
-                #{resourceName},
-                #{path},
-                #{ext},
-                #{mimeType},
-                #{sizeByte},
-                #{registerUserSeq}
-            )
+        (
+            #{entity.userSeq},
+            #{entity.parentFolderSeq},
+            #{entity.resourceType},
+            #{entity.resourceName},
+            "path",
+            #{entity.ext},
+            #{entity.mimeType},
+            #{entity.sizeByte},
+            1
+        )
 
     </insert>
 

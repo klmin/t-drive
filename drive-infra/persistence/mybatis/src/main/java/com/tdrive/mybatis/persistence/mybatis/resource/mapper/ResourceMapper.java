@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ResourceMapper {
 
     int insert(ResourceEntity entity);
-    int insertTableNumber(ResourceEntity entity);
+    int insertTableNumber(ResourceEntity entity, int tableNumber);
 
 }

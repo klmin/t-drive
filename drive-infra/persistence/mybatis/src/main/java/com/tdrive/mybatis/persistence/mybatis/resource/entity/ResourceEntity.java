@@ -3,17 +3,19 @@ package com.tdrive.mybatis.persistence.mybatis.resource.entity;
 import com.tdrive.domain.resource.enums.ResourceType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Builder
 @Getter
+@ToString
 public class ResourceEntity {
 
     private Long resourceSeq;
     private Integer userSeq;
     private ResourceType resourceType;
-    private Long parentResourceSeq;
+    private Long parentFolderSeq;
     private String resourceName;
     private Boolean isDelete;
     private LocalDateTime deleteDate;

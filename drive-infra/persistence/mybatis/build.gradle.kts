@@ -9,10 +9,13 @@ tasks{
     }
 }
 
+val mapStructVersion: String by project
+val myBatisVersion: String by project
+
 dependencies {
     implementation(project(":drive-domain"))
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4")
-    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4")
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:$myBatisVersion")
+    testImplementation("org.mybatis.spring.boot:mybatis-spring-boot-starter-test:$myBatisVersion")
 }
