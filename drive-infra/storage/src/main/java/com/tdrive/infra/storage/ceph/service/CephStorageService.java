@@ -16,6 +16,8 @@ import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
+import java.util.Map;
 
 @ConditionalOnProperty(name = "storage.type", havingValue = "ceph", matchIfMissing = true)
 @Service
@@ -27,25 +29,41 @@ public class CephStorageService implements StorageService {
     @Override
     public void upload(InputStream inputStream, long contentLength, String bucketName, String key) {
 
-
         s3Client.createBucket(req -> req.bucket(bucketName));
 
 
         ByteBuffer input = ByteBuffer.wrap("Hello World!".getBytes());
-        s3Client.putObject(
-                req -> {
-                    req.bucket(bucketName).key(key);
-                },
-                RequestBody.fromByteBuffer(input)
-        );
 
-        s3Client.putObject(
-                req -> {
-                    req.bucket(bucketName).key("user/dd");
-                },
-                RequestBody.fromByteBuffer(input)
-        );
 
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                                                            .bucket(bucketName)
+                                                            .contentType("application/octet-stream")
+                                                            .key(key)
+                                                            .build();
+
+        s3Client.putObject(putObjectRequest, RequestBody.fromByteBuffer(input));
+
+//        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+//                                           .bucket(bucketName)
+//                                           .key(key)
+//                                           .metadata(metadata)
+//                                           .build();
+//
+//        s3Client.putObject(putObjectRequest, RequestBody.fromByteBuffer(input));
+//
+//
+//        s3Client.putObject(putObjectRequest, RequestBody.fromByteBuffer(input));
+//
+//
+//
+//
+//        s3Client.putObject(
+//                req -> {
+//                    req.bucket(bucketName).key("user/dd").metadata(metadata);
+//                },
+//                RequestBody.fromByteBuffer(input)
+//        );
+//
         ListObjectsResponse loResponse = s3Client.listObjects(req -> req.bucket(bucketName));
 
         for (S3Object object : loResponse.contents()) {
@@ -65,10 +83,14 @@ public class CephStorageService implements StorageService {
 
         listRes.contents().forEach(r -> {
             System.out.println("r.key() : "+r.key());
+
+            System.out.println("r.lastModified() : "+r.lastModified());
+            System.out.println("r.size() : "+r.size());
+
         });
 
         this.download(bucketName, key);
-       // this.delete(bucketName, key);
+   //     this.delete(bucketName, key);
 //        this.delete("test", "aa/aa/hello.txt");
 
 //        s3Client.createBucket(req -> req.bucket(bucketName));

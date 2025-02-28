@@ -1,6 +1,9 @@
 package com.tdrive.application.file.usecase;
 
-import com.tdrive.domain.file.service.FileService;
+import com.tdrive.application.file.converter.FileApplicationConverter;
+import com.tdrive.application.file.dto.FileUploadDto;
+import com.tdrive.application.file.dto.FileUploadResponseDto;
+import com.tdrive.domain.resource.service.ResourceService;
 import com.tdrive.domain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,10 +12,11 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class FileUploadUseCase {
 
-    private final FileService fileService;
+    private final ResourceService resourceService;
     private final StorageService storageService;
+    private final FileApplicationConverter converter;
 
-    public String upload(){
+    public FileUploadResponseDto upload(FileUploadDto dto){
 
         System.out.println("call FileUploadUseCase upload");
 
@@ -24,9 +28,11 @@ public class FileUploadUseCase {
 
         // 4. ceph 결과에 따라 db 삭제?
 
-        fileService.insert();
-        storageService.upload(null, 0, "test", "user/ee");
+        resourceService.insert(converter.toResource(dto));
+        storageService.upload(null, 0, "test", "user/test1");
 
-        return "";
+        var response = FileUploadResponseDto.builder().build();
+
+        return response;
     }
 }
