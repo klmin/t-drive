@@ -10,5 +10,5 @@ tasks{
 }
 
 dependencies {
-    runtimeOnly("com.mysql:mysql-connector-j")
+    implementation("com.mysql:mysql-connector-j")
 }

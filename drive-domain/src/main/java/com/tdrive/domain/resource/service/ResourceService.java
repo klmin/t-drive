@@ -4,5 +4,6 @@ import com.tdrive.domain.resource.model.Resource;
 
 public interface ResourceService {
 
-    int insert(Resource resource);
+    Resource insert(Resource resource);
+
 }

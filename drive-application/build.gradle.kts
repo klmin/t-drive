@@ -9,8 +9,10 @@ tasks{
     }
 }
 
+val mapStructVersion: String by project
+
 dependencies {
     implementation(project(":drive-domain"))
-    implementation("org.mapstruct:mapstruct:1.5.5.Final")
-    annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
+    implementation("org.mapstruct:mapstruct:$mapStructVersion")
+    annotationProcessor("org.mapstruct:mapstruct-processor:$mapStructVersion")
 }

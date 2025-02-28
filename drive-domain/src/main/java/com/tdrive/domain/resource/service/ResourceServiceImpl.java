@@ -12,8 +12,11 @@ public class ResourceServiceImpl implements ResourceService {
     private final ResourceRepository resourceRepository;
 
     @Override
-    public int insert(Resource resource) {
+    public Resource insert(Resource resource) {
         System.out.println("call FileServiceImpl upload");
-        return resourceRepository.insert(resource);
+        Resource insertResource = resourceRepository.insert(resource);
+        insertResource.initResourceSaveName();
+        return resourceRepository.updateResourceName(insertResource);
     }
+
 }

@@ -10,8 +10,13 @@ import org.springframework.stereotype.Repository;
 public class ResourceRepositoryImpl implements ResourceRepository {
 
     @Override
-    public int insert(Resource resource) {
+    public Resource insert(Resource resource) {
         System.out.println("call Jpa FileRepositoryImpl insert");
-        return 0;
+        return null;
+    }
+
+    @Override
+    public Resource updateResourceName(Resource resource) {
+        return null;
     }
 }

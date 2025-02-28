@@ -5,6 +5,5 @@ spring :
     import:
       - "optional:file:.env[.properties]"
       - "optional:classpath:application-storage-${spring.profiles.active}.yml"
+      - "optional:classpath:application-mybatis-${spring.profiles.active}.yml"
       - "optional:classpath:application-mysql-${spring.profiles.active}.yml"
-
-

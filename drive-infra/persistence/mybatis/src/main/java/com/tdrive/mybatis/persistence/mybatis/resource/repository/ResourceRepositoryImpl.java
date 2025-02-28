@@ -3,9 +3,11 @@ package com.tdrive.mybatis.persistence.mybatis.resource.repository;
 import com.tdrive.domain.resource.model.Resource;
 import com.tdrive.domain.resource.repository.ResourceRepository;
 import com.tdrive.mybatis.persistence.mybatis.resource.converter.ResourceConverter;
+import com.tdrive.mybatis.persistence.mybatis.resource.entity.ResourceEntity;
 import com.tdrive.mybatis.persistence.mybatis.resource.mapper.ResourceMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -14,16 +16,35 @@ public class ResourceRepositoryImpl implements ResourceRepository {
 
     private final ResourceMapper mapper;
     private final ResourceConverter converter;
+    @Value("${table.count}")
+    private int tableCount;
+
+    private int calculateTableNumber(Integer userSeq) {
+        if (userSeq == null) {
+            throw new IllegalArgumentException("userSeq is null");
+        }
+        return ((userSeq - 1) % tableCount) + 1;
+    }
 
     @Override
-    public int insert(Resource resource) {
+    public Resource insert(Resource resource) {
         System.out.println("call MyBatis FileRepositoryImpl insert");
         var entity = converter.toEntity(resource);
-        var insertResult = mapper.insert(entity);
-        var insertTableNumberResult = mapper.insertTableNumber(entity);
-        System.out.println("entity.getResourceSeq() : " + entity.getResourceSeq());
-        System.out.println("insertResult : " + insertResult);
-        System.out.println("insertTableNumberResult : " + insertTableNumberResult);
-        return 0;
+        var tableNumber = calculateTableNumber(resource.getUserSeq());
+        mapper.insertByTable(entity, tableNumber);
+        return converter.toDomain(entity);
+
     }
+
+    @Override
+    public Resource updateResourceName(Resource resource) {
+        System.out.println("call MyBatis FileRepositoryImpl updateResourceName");
+        var tableNumber = calculateTableNumber(resource.getUserSeq());
+        var entity = converter.toEntity(resource);
+        mapper.updateResourceSaveNameByTable(entity, tableNumber);
+        return converter.toDomain(entity);
+    }
+
+
+
 }

@@ -1,4 +1,6 @@
 package com.tdrive.api.v1.file.response;
 
-public record FileUploadResponse() {
+public record FileUploadResponse(
+        String fileName
+) {
 }

@@ -1,11 +1,9 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE}
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://localhost:3306/${MYSQL_DATABASE:tdrive}
+    username: "${MYSQL_USER:tdrive_user}"
+    password: "${MYSQL_PASSWORD:tdrive@1234}"
+#    url: jdbc:mysql://localhost:3306/tdrive
+#    username: tdrive_user
+#    password: tdrive@1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect

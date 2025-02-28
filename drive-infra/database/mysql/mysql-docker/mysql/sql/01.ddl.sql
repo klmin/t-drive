@@ -6,8 +6,8 @@ create database tdrive character set utf8mb4 collate utf8mb4_general_ci;
 CREATE USER 'tdrive_user'@'localhost' IDENTIFIED BY 'tdrive@1234';
 CREATE USER 'tdrive_user'@'%' IDENTIFIED BY 'tdrive@1234';
 
-GRANT ALL PRIVILEGES ON product.* TO 'tdrive'@'localhost';
-GRANT ALL PRIVILEGES ON product.* TO 'tdrive'@'%';
+GRANT ALL PRIVILEGES ON tdrive.* TO 'tdrive_user'@'localhost';
+GRANT ALL PRIVILEGES ON tdrive.* TO 'tdrive_user'@'%';
 
 use product;
 
