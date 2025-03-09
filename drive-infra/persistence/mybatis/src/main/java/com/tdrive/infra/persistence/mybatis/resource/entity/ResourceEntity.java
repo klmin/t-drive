@@ -1,4 +1,4 @@
-package com.tdrive.mybatis.persistence.mybatis.resource.entity;
+package com.tdrive.infra.persistence.mybatis.resource.entity;
 
 import com.tdrive.domain.resource.enums.ResourceType;
 import lombok.Builder;

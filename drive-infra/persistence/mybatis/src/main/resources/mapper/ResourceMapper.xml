@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.tdrive.mybatis.persistence.mybatis.resource.mapper.ResourceMapper">
+<mapper namespace="com.tdrive.infra.persistence.mybatis.resource.mapper.ResourceMapper">
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="resourceSeq">
 

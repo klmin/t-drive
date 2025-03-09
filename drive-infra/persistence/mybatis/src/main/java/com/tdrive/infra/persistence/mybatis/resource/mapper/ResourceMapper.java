@@ -1,6 +1,6 @@
-package com.tdrive.mybatis.persistence.mybatis.resource.mapper;
+package com.tdrive.infra.persistence.mybatis.resource.mapper;
 
-import com.tdrive.mybatis.persistence.mybatis.resource.entity.ResourceEntity;
+import com.tdrive.infra.persistence.mybatis.resource.entity.ResourceEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
