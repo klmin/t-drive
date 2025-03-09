@@ -1,7 +1,6 @@
 package com.tdrive.bootstrap;
 
 
-
 import com.tdrive.api.v1.file.converter.FileControllerConverter;
 import com.tdrive.api.v1.file.request.FileUploadRequest;
 import com.tdrive.application.file.dto.FileUploadDto;
@@ -9,15 +8,12 @@ import com.tdrive.application.file.usecase.FileUploadUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.sql.Connection;

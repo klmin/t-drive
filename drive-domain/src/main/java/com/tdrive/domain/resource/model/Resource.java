@@ -4,6 +4,7 @@ package com.tdrive.domain.resource.model;
 import com.tdrive.domain.resource.enums.ResourceType;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;

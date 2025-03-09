@@ -34,7 +34,7 @@
 
     </insert>
     
-    <insert id="insertByTable" useGeneratedKeys="true" keyProperty="entity.resourceSeq">
+    <insert id="insertByTable" useGeneratedKeys="true" keyProperty="resourceSeq">
 
         INSERT INTO TB_RESOURCE_${tableNumber}
         (
@@ -50,14 +50,14 @@
         )
         VALUES
         (
-            #{entity.userSeq},
-            #{entity.parentFolderSeq},
-            #{entity.resourceType},
-            #{entity.resourceName},
+            #{userSeq},
+            #{parentFolderSeq},
+            #{resourceType},
+            #{resourceName},
             "path",
-            #{entity.ext},
-            #{entity.mimeType},
-            #{entity.sizeByte},
+            #{ext},
+            #{mimeType},
+            #{sizeByte},
             1
         )
 
@@ -76,9 +76,9 @@
         UPDATE
             TB_RESOURCE_${tableNumber}
         SET
-            RESOURCE_SAVE_NAME = #{entity.resourceSaveName}
+            RESOURCE_SAVE_NAME = #{resourceSaveName}
         WHERE
-            RESOURCE_SEQ = #{entity.resourceSeq}
+            RESOURCE_SEQ = #{resourceSeq}
     </update>
 
 

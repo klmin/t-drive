@@ -15,6 +15,7 @@ public class ResourceServiceImpl implements ResourceService {
     public Resource insert(Resource resource) {
         System.out.println("call FileServiceImpl upload");
         Resource insertResource = resourceRepository.insert(resource);
+        System.out.println("resource : "+resource);
         insertResource.initResourceSaveName();
         return resourceRepository.updateResourceName(insertResource);
     }

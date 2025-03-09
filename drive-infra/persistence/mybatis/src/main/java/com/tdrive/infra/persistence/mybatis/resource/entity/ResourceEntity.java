@@ -1,6 +1,7 @@
 package com.tdrive.infra.persistence.mybatis.resource.entity;
 
 import com.tdrive.domain.resource.enums.ResourceType;
+import com.tdrive.infra.persistence.mybatis.partition.PartitionSupport;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
 @Builder
 @Getter
 @ToString
-public class ResourceEntity {
+public class ResourceEntity implements PartitionSupport {
 
     private Long resourceSeq;
     private Integer userSeq;
@@ -29,4 +30,15 @@ public class ResourceEntity {
     private Long updateUserSeq;
     private LocalDateTime updateDate;
 
+    private Integer tableNumber;
+
+    @Override
+    public Number getPartitionKey() {
+        return userSeq.longValue();
+    }
+
+    @Override
+    public void setTableNumber(Integer tableNumber) {
+        this.tableNumber = tableNumber;
+    }
 }
