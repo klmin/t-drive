@@ -49,7 +49,6 @@ public class BeanChecker implements ApplicationRunner {
 
         try(Connection connection = dataSource.getConnection()){
             DatabaseMetaData metaData = connection.getMetaData();
-            System.out.println(dataSource.getClass().getName());
             System.out.println("metaData.getConnection().getSchema() : " + metaData.getConnection().getSchema());
             System.out.println("metaData.getURL() : " + metaData.getURL());
             System.out.println("metaData.getDatabaseProductName() : " + metaData.getDatabaseProductName());

@@ -8,9 +8,6 @@ import com.tdrive.domain.resource.service.ResourceService;
 import com.tdrive.domain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-
 
 @Service
 @RequiredArgsConstructor
@@ -20,18 +17,17 @@ public class FileUploadUseCase {
     private final StorageService storageService;
     private final FileApplicationConverter converter;
 
-    @Transactional
     public FileUploadResponseDto upload(FileUploadDto dto){
 
         System.out.println("call FileUploadUseCase upload");
 
+        // 1. DB 입력
 
+        // 2. key 생성
 
-        // 1. 파일분해
+        // 3. ceph 전송
 
-        // 2. DB 입력
-
-        // 3. key 생성
+        // 4. ceph 결과에 따라 db 삭제?
 
         // 4. ceph 전송
 

@@ -3,11 +3,9 @@ package com.tdrive.mybatis.persistence.mybatis.resource.repository;
 import com.tdrive.domain.resource.model.Resource;
 import com.tdrive.domain.resource.repository.ResourceRepository;
 import com.tdrive.mybatis.persistence.mybatis.resource.converter.ResourceConverter;
-import com.tdrive.mybatis.persistence.mybatis.resource.entity.ResourceEntity;
 import com.tdrive.mybatis.persistence.mybatis.resource.mapper.ResourceMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -44,7 +42,4 @@ public class ResourceRepositoryImpl implements ResourceRepository {
         mapper.updateResourceSaveNameByTable(entity, tableNumber);
         return converter.toDomain(entity);
     }
-
-
-
 }

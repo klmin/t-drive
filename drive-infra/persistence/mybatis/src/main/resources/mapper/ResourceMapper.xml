@@ -29,7 +29,7 @@
             #{ext},
             #{mimeType},
             #{sizeByte},
-            1
+            #{registerUserSeq}
         )
 
     </insert>
