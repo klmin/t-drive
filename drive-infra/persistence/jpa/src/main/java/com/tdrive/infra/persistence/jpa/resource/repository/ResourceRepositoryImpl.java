@@ -3,7 +3,6 @@ package com.tdrive.infra.persistence.jpa.resource.repository;
 
 import com.tdrive.domain.resource.model.Resource;
 import com.tdrive.domain.resource.repository.ResourceRepository;
-import com.tdrive.infra.persistence.jpa.resource.entity.ResourceEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository

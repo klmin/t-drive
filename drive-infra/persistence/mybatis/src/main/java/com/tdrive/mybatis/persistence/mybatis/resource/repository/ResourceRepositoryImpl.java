@@ -5,7 +5,7 @@ import com.tdrive.domain.resource.repository.ResourceRepository;
 import com.tdrive.mybatis.persistence.mybatis.resource.converter.ResourceConverter;
 import com.tdrive.mybatis.persistence.mybatis.resource.mapper.ResourceMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 @Repository

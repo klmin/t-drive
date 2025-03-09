@@ -29,8 +29,6 @@ public class FileUploadUseCase {
 
         // 4. ceph 결과에 따라 db 삭제?
 
-        // 4. ceph 전송
-
         // 5. ceph 실패시 db 삭제
 
         // path = parentfolder
