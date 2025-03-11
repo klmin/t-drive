@@ -5,6 +5,7 @@ import com.tdrive.api.v1.file.converter.FileControllerConverter;
 import com.tdrive.api.v1.file.request.FileUploadRequest;
 import com.tdrive.application.file.dto.FileUploadDto;
 import com.tdrive.application.file.usecase.FileUploadUseCase;
+import com.tdrive.domain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -31,18 +32,18 @@ public class BeanChecker implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws IOException {
 
-        FileUploadRequest request = new FileUploadRequest(1, 3L);
-        FileUploadRequest request2 = new FileUploadRequest(2, 3L);
-
-        ClassPathResource resource = new ClassPathResource("/test/test.txt");
-        File file = resource.getFile();
-        byte[] fileBytes = Files.readAllBytes(file.toPath());
-        MultipartFile multipartFile = new CustomMultipartFile("file", file.getName(), "text/plain", fileBytes);
-        FileUploadDto dto = converter.toDto(multipartFile, request);
-        FileUploadDto dto2 = converter.toDto(multipartFile, request2);
-        fileUploadUseCase.upload(dto);
-        fileUploadUseCase.upload(dto2);
-
+//        ClassPathResource resource = new ClassPathResource("/test/test.txt");
+//        File file = resource.getFile();
+//        byte[] fileBytes = Files.readAllBytes(file.toPath());
+//        MultipartFile multipartFile = new CustomMultipartFile("file", file.getName(), "text/plain", fileBytes);
+//        FileUploadRequest request = new FileUploadRequest(1, 3L, multipartFile);
+//        FileUploadRequest request2 = new FileUploadRequest(2, 3L, multipartFile);
+//
+//        FileUploadDto dto = converter.toDto(request);
+//        FileUploadDto dto2 = converter.toDto(request2);
+//        fileUploadUseCase.upload(dto);
+//        fileUploadUseCase.upload(dto2);
+//
         try(Connection connection = dataSource.getConnection()){
             DatabaseMetaData metaData = connection.getMetaData();
             System.out.println("metaData.getConnection().getSchema() : " + metaData.getConnection().getSchema());
@@ -54,6 +55,13 @@ public class BeanChecker implements ApplicationRunner {
         }catch(SQLException e){
             System.err.println("❌ Failed to get DataSource info: " + e.getMessage());
         }
+        
+        if (dataSource instanceof com.zaxxer.hikari.HikariDataSource) {
+            System.out.println("Using HikariCP as DataSource");
+        } else {
+            System.out.println("Not using HikariCP");
+        }
+        
 //        System.out.println("========== 등록된 StorageService 빈 ==========");
 //        String[] storageBeans = context.getBeanNamesForType(StorageService.class);
 //        for (String bean : storageBeans) {

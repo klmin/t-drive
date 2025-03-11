@@ -8,9 +8,11 @@ import com.tdrive.domain.resource.service.ResourceService;
 import com.tdrive.domain.storage.service.StorageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class FileUploadUseCase {
 
     private final ResourceService resourceService;
@@ -36,6 +38,7 @@ public class FileUploadUseCase {
         // user_seq
 
         Resource resource = resourceService.insert(converter.toResource(dto));
+        
         System.out.println("resource : "+resource);
 
         storageService.upload(null, 0, "test", "user/test1");

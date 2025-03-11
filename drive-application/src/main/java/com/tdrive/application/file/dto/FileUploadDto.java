@@ -1,9 +1,9 @@
 package com.tdrive.application.file.dto;
 
-import com.tdrive.domain.resource.enums.ResourceType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.web.multipart.MultipartFile;
 
 @Builder
 @Getter
@@ -16,4 +16,5 @@ public class FileUploadDto {
     private String ext;
     private String mimeType;
     private Long sizeByte;
+    private MultipartFile file;
 }

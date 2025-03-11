@@ -6,8 +6,10 @@ import com.tdrive.api.v1.file.response.FileUploadResponse;
 import com.tdrive.application.file.usecase.FileUploadUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/api/v1/resources/files")
 @RestController
@@ -18,9 +20,8 @@ public class FileController {
     private final FileControllerConverter converter;
 
     @PostMapping
-    public ResponseEntity<FileUploadResponse> upload(@RequestPart("file") MultipartFile file,
-                                                     @RequestPart("json") FileUploadRequest request) {
-        var result = fileUploadUseCase.upload(converter.toDto(file, request));
+    public ResponseEntity<FileUploadResponse> upload(@ModelAttribute FileUploadRequest request) {
+        var result = fileUploadUseCase.upload(converter.toDto(request));
         var response = converter.toResponse(result);
         return ResponseEntity.ok(response);
     }
